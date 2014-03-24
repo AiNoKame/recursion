@@ -31,11 +31,11 @@ var stringifyJSON = function (obj) {
   };
 
   var handleString = function(token) {
-
+    result = result.concat('\"' + token + '\"')
   };
 
   var handleBoolean = function(token) {
-
+    result = result.concat(token);
   };
 
   var handleNumber = function(token) {
