@@ -17,7 +17,17 @@ var stringifyJSON = function (obj) {
   };
 
   var handleArray = function(token) {
+    result = result.concat('[');
 
+    for (var i = 0; i < token.length; i++) {
+    	if (i) {
+    		result = result.concat(',');
+    	}
+
+    	starter(token[i]);
+    }
+
+    result = result.concat(']');
   };
 
   var handleString = function(token) {
@@ -29,7 +39,7 @@ var stringifyJSON = function (obj) {
   };
 
   var handleNumber = function(token) {
-
+    result = result.concat(token);
   };
 
   var stringifyActions = {
