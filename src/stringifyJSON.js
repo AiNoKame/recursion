@@ -4,55 +4,59 @@
 // but you don't so you're going to have to write it from scratch:
 var stringifyJSON = function (obj) {
   // your code goes here
-  var  result = '';
-
   var handleObject = function(token) {
-    if (token === null) {
-    	result = result.concat('null');
-    } else if (token instanceof Array) {
-    	handleArray(token);
-    } else {
-      var keys = Object.keys(token);
-      result = result.concat('{');
+  	if (token === null) {
+    	return 'null';
+    }
 
-      for (var i = 0; i < keys.length; i++) {
-        if (i) {
-        	result = result.concat(',');
-        }
+    if (token instanceof Array) {
+    	return handleArray(token);
+    } 
+    
+    var result = '';
+    
+    var keys = Object.keys(token);
+    result = result.concat('{');
 
-        starter(keys[i]);
-        result = result.concat(':');
-        starter(token[keys[i]]);
+    for (var i = 0; i < keys.length; i++) {
+      if (i) {
+      	result = result.concat(',');
       }
 
-      result = result.concat('}');
+      result = result.concat(starter(keys[i]));
+      result = result.concat(':');
+      result = result.concat(starter(token[keys[i]]));
     }
+
+    result = result.concat('}');
+
+    return result;
   };
 
   var handleArray = function(token) {
-    result = result.concat('[');
+    var result = '[';
 
     for (var i = 0; i < token.length; i++) {
     	if (i) {
     		result = result.concat(',');
     	}
 
-    	starter(token[i]);
+    	result = result.concat(starter(token[i]));
     }
 
-    result = result.concat(']');
+    return result.concat(']');;
   };
 
   var handleString = function(token) {
-    result = result.concat('\"' + token + '\"')
+    return '\"' + token + '\"';
   };
 
   var handleBoolean = function(token) {
-    result = result.concat(token);
+    return token.toString();
   };
 
   var handleNumber = function(token) {
-    result = result.concat(token);
+    return token.toString();
   };
 
   var stringifyActions = {
@@ -67,10 +71,8 @@ var stringifyJSON = function (obj) {
     	throw new Error('Invalid JSON object.');
     }
 
-    stringifyActions[typeof token](token);
+    return stringifyActions[typeof token](token);
   };
 
-  starter(obj);
-
-  return result;
+  return starter(obj);
 };
