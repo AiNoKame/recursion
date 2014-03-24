@@ -8,7 +8,7 @@ var getElementsByClassName = function (className) {
   // your code here
   var results = [];
 
-  var starter = function(element) {
+  var searchForClassNameIn = function(element) {
   	var classes = element.classList;
     
     for (var prop in classes) {
@@ -20,10 +20,10 @@ var getElementsByClassName = function (className) {
     var children = element.childNodes;
 
     for (var j = 0; j < children.length; j++) {
-      starter(children[j]);
+      searchForClassNameIn(children[j]);
     }
   };
   
-  starter(document.body);
+  searchForClassNameIn(document.body);
   return results;
 };
