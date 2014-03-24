@@ -19,12 +19,12 @@ var stringifyJSON = function (obj) {
     result = result.concat('{');
 
     for (var i = 0; i < keys.length; i++) {
-    	if (starter(keys[i]) !== '' && starter(token[keys[i]]) !== '') {
-        if (i) {
+    	if ((starter(keys[i]) !== '') && (starter(token[keys[i]]) !== '')) {
+        result = result.concat(starter(keys[i]) + ':' + starter(token[keys[i]]));
+
+        if (i < keys.length - 1) {
       	  result = result.concat(',');
         }
-
-        result = result.concat(starter(keys[i]) + ':' + starter(token[keys[i]]));
     	}
     }
 
@@ -38,11 +38,11 @@ var stringifyJSON = function (obj) {
 
     for (var i = 0; i < token.length; i++) {
     	if (starter(token[i]) !== '') {
-    	  if (i) {
+    	  result = result.concat(starter(token[i]));
+
+    	  if (i < token.length - 1) {
     		  result = result.concat(',');
     	  }
-
-    	  result = result.concat(starter(token[i]));
     	}
     }
 
