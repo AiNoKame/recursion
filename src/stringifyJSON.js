@@ -9,10 +9,23 @@ var stringifyJSON = function (obj) {
   var handleObject = function(token) {
     if (token === null) {
     	result = result.concat('null');
-    }
-
-    if (token instanceof Array) {
+    } else if (token instanceof Array) {
     	handleArray(token);
+    } else {
+      var keys = Object.keys(token);
+      result = result.concat('{');
+
+      for (var i = 0; i < keys.length; i++) {
+        if (i) {
+        	result = result.concat(',');
+        }
+
+        starter(keys[i]);
+        result = result.concat(':');
+        starter(token[keys[i]]);
+      }
+
+      result = result.concat('}');
     }
   };
 
